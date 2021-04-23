@@ -1,0 +1,39 @@
+float[] armAngle = new float[2];
+float armLength = 15;
+float num1, num2;
+float x = 150, y = 150;
+float ix = 100, iy = 100;
+
+void setup() {
+  size(600, 600);
+  
+}
+
+void draw() {
+  background(200);
+  show();
+  num1 = mouseX;
+  num2 = mouseY;
+  x = mouseX;
+  y = mouseY;
+  num1 /= 100;
+  num2 /= 100;
+  //armAngle[0] = num1;
+  //armAngle[1] = num2;
+  //println(acos(num1));
+  println(acos(sq(x) + sq(y) - sq(armLength) - sq(armLength)) / 2*(armLength*armLength));
+  armAngle[1] = acos((sq(x) + sq(y) - sq(armLength) - sq(armLength)) / 2*(armLength*armLength));
+  armAngle[0] = atan(y/x) - atan((armLength * sin(armAngle[1])) / (armLength + armLength * cos(armAngle[1])));
+  println(armAngle[0] + armAngle[1]);
+}
+
+void show() {
+  //for(int i = 0; i < 2; i++) {
+  armAngle[1] = radians(armAngle[1]);
+  armAngle[0] = radians(armAngle[0]);
+  strokeWeight(3);
+  line(ix, iy, ix + cos(armAngle[0])*armLength, iy + sin(armAngle[0])*armLength);
+  circle(ix + cos(armAngle[0])*armLength, iy + sin(armAngle[0])*armLength, 5);
+  line(ix + cos(armAngle[0])*armLength, iy + sin(armAngle[0])*armLength, ix + (cos(armAngle[0]) + cos(armAngle[1]))*armLength, iy + (sin(armAngle[0]) + sin(armAngle[1]))*armLength);
+  //}
+}
