@@ -12,5 +12,9 @@ class Option
     this.name = name;
     this.functionName = function;
     size = new PVector(textWidth(name), 22);
-  }  
+  }
+  
+  void RunFunction() {
+    method(functionName);
+  }
 }

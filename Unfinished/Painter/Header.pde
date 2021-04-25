@@ -20,7 +20,7 @@ class Header
       //Skipping first element
       if (index != 0) {
         String[] splitOption = split(fullOption, ",");
-        options.add( new Option(splitOption[0], splitOption[0]) );
+        options.add( new Option(splitOption[0], splitOption[1]) );
       }
       index++;      
     }
@@ -44,7 +44,7 @@ class Header
     
     noStroke();
     fill(mainColor);
-    translate(-headerSpace/2, topbarHeight);
+    translate(-headerSpace/2, headerHeight);
     rect(0, 0, dropdownSize.x, dropdownSize.y);
     
     for(Option option : options) {
@@ -65,7 +65,7 @@ class Header
   {
     float offset = 2;
     for(Option option : options) {
-      if (mouseOn(pos.x + -headerSpace/2 + offset, topbarHeight + option.ypos + offset, dropdownSize.x + offset, option.size.y)) {
+      if (mouseOn(pos.x + -headerSpace/2 + offset, headerHeight + option.ypos + offset, dropdownSize.x + offset, option.size.y)) {
         option.hovered = true;
       }
       else {

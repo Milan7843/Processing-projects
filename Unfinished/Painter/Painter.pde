@@ -4,6 +4,7 @@ PFont segoeui;
 color textColor       = color(255);
 color mainColor       = color(103, 107, 128);
 color secondaryColor  = color(126, 131, 156);
+color betweenColor    = color(114, 119, 142);
 color accentColor     = color(123, 109, 191);
 
 
@@ -16,14 +17,18 @@ String filepath;
 // l : line
 // Do not use header tag on first header
 String topbar = "" +
+
 "File" +
+"[o]Open,Open" +
 "[o]Save,Save" +
 "[o]Save as,SaveAs" +
+"[o]Close,Close" +
+
 "[h]Canvas" +
 "[o]Background colour,setBackgroundColor" +
-"[l]" +
 "[o]Save,Save" +
 "[o]Save as,SaveAs" +
+
 "[h]Pen" +
 "[o]Clear,Clear" +
 "[o]Save,Save" +
@@ -32,9 +37,12 @@ String topbar = "" +
 ArrayList<Header> headers = new ArrayList<Header>();
 
 
-float headerSpace = 10;
+float headerSpace = 20;
 float headerHeight = 25;
-float topbarHeight = 25;
+float topbarHeight = 75;
+
+PVector canvasPos;
+PVector canvasSize;
 
 void setup() 
 {
@@ -51,11 +59,18 @@ void draw()
   DrawBar();
 }
 
+void DrawCanvas() 
+{
+  
+}
+
 void DrawBar() 
 {
   noStroke();
   fill(mainColor);
-  rect(0, 0, width, topbarHeight);
+  rect(0, 0, width, headerHeight);
+  fill(betweenColor);
+  rect(0, headerHeight, width, topbarHeight);
   pushMatrix();
   
   translate(headerSpace/2, 0);
@@ -118,7 +133,7 @@ void CheckMouse()
   {
     for(Header header : headers) 
     {
-      if (mouseOn(header.pos.x, 0, header.pos.y, topbarHeight)) {
+      if (mouseOn(header.pos.x, 0, header.pos.y, headerHeight)) {
         header.hovered = true;
         header.opened = true;
       }
@@ -132,7 +147,7 @@ void CheckMouse()
   {
     if (header.opened) {
       // Check whether mouse is not on button itself, and not on dropdown
-      if (!(mouseOn(header.pos.x, 0, header.pos.y, topbarHeight) || mouseOn(header.pos.x, topbarHeight-1, header.dropdownSize.x, header.dropdownSize.y+1))) {
+      if (!(mouseOn(header.pos.x, 0, header.pos.y, headerHeight) || mouseOn(header.pos.x, headerHeight-1, header.dropdownSize.x, header.dropdownSize.y+1))) {
         header.opened = false;
         header.hovered = false;
       }
@@ -146,19 +161,30 @@ boolean mouseOn(float x, float y, float sx, float sy) {
 }
 
 void mousePressed() {
-  /*
+  
   for(Header header : headers) 
   {
-    if (header.hovered) {
-      header.opened = true;
+    for(Option option : header.options) {
+      if (option.hovered) {
+        option.RunFunction();
+      }
     }
   }
-  */
+  
+}
+
+void ConfirmAction(String function) {
+  
+}
+
+void Close() 
+{
+  exit();
 }
 
 void Clear() 
 {
-  
+  print("clearing");
 }
 
 void Save() 
